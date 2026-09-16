@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Navbar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <!-- Logo -->
+            <a href="#" class="nav-logo">
+                <img src="https://i.ibb.co/7QXq1Yz/free-fire-logo.png" alt="Free Fire Logo" class="logo-img">
+                <!-- Jika logo tidak muncul, gunakan fallback teks -->
+                <span class="logo-text">FREE FIRE</span>
+            </a>
+
+            <!-- Hamburger Menu (Mobile) -->
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <!-- Navigation Links -->
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-home"></i> Beranda
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-gamepad"></i> Game
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-store"></i> Store
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-trophy"></i> Event
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-newspaper"></i> News
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link btn-download">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-- ===== KONTEN CONTOH ===== -->
+    <section class="hero">
+        <h1>🔥 BOOYAH! 🔥</h1>
+        <p>Selamat datang di dunia Free Fire</p>
+    </section>
+
+    <script>
+        // Toggle Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Tutup menu saat link diklik (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
