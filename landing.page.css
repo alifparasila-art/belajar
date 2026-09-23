@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire - Booyah!</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (Font Gaming) -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        :root {
+            --ff-yellow: #FFCC00;
+            --ff-orange: #FF6600;
+            --dark-bg: #111111;
+            --card-bg: #1a1a1a;
+            --text-white: #ffffff;
+            --text-gray: #cccccc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .nav-link, .btn {
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* ===== NAVBAR STYLES (Dari kodemu + Sedikit Penyesuaian) ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--ff-orange);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--ff-yellow);
+        }
+
+        .logo-img { height: 40px; }
+
+        .nav-menu { display: flex; gap: 30px; align-items: center; }
+
+        .nav-link {
+            color: var(--text-white);
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--ff-yellow); }
+
+        .btn-download {
+            background: linear-gradient(45deg, var(--ff-orange), #ff0000);
+            padding: 8px 25px;
+            border-radius: 4px;
+            color: white !important;
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
+        }
+
+        .btn-download:hover { transform: scale(1.05); }
+
+        /* Hamburger */
+        .hamburger { display: none; cursor: pointer; }
+        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: white; transition: 0.3s; }
+
+        /* Mobile Nav */
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed; left: -100%; top: 70px; flex-direction: column;
+                background-color: var(--dark-bg); width: 100%; text-align: center;
+                padding: 20px 0; border-bottom: 2px solid var(--ff-orange);
+            }
+            .nav-menu.active { left: 0; }
+            .nav-item { margin: 15px 0; }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            color: var(--ff-yellow);
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--text-gray);
+            max-width: 600px;
+        }
+
+        .cta-buttons { display: flex; gap: 20px; }
+
+        .btn-hero {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary { background-color: var(--ff-yellow); color: black; }
+        .btn-outline { border: 2px solid white; background: transparent; color: white; }
+        
+        .btn-hero:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+
+        /* ===== FEATURES SECTION ===== */
+        .section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: ''; display: block; width: 60%; height: 4px;
+            background: var(--ff-orange); margin: 10px auto 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #333;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--ff-yellow);
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--ff-orange);
+            margin-bottom: 20px;
+        }
+
+        /* ===== CHARACTERS SECTION ===== */
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .char-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 350px;
+        }
+
+        .char-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .char-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, black, transparent);
+            padding: 20px;
+            transform: translateY(100px);
+            transition: 0.3s;
+        }
+
+        .char-card:hover img { transform: scale(1.1); }
+        .char-card:hover .char-info { transform: translateY(0); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #000;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 2px solid var(--ff-orange);
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+        .social-icons a:hover { color: var(--ff-yellow); }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="https://i.ibb.co/7QXq1Yz/free-fire-logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+                <span class="logo-text"><i class="fas fa-fire"></i> FREE FIRE</span>
+            </a>
+
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Beranda</a></li>
+                <li class="nav-item"><a href="#features" class="nav-link">Fitur</a></li>
+                <li class="nav-item"><a href="#characters" class="nav-link">Karakter</a></li>
+                <li class="nav-item"><a href="#" class="nav-link btn-download"><i class="fas fa-download"></i> Download</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+        <h1>BOOYAH!</h1>
+        <p>Bergabunglah dengan 1 miliar pemain di seluruh dunia. Bertahan hidup, bertarung, dan jadilah yang terakhir berdiri.</p>
+        <div class="cta-buttons">
+            <button class="btn-hero btn-primary"><i class="fas fa-play"></i> Main Sekarang</button>
+            <button class="btn-hero btn-outline"><i class="fas fa-video"></i> Lihat Trailer</button>
+        </div>
+    </section>
+
+    <!-- ===== FITUR SECTION ===== -->
+    <section class="section" id="features">
+        <h2 class="section-title">Mengapa Free Fire?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-stopwatch feature-icon"></i>
+                <h3>10 Menit Cepat</h3>
+                <p>Game battle royale intens yang hanya memakan waktu 10 menit per pertandingan.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users feature-icon"></i>
+                <h3>Squad Up</h3>
+                <p>Bentuk tim dengan temanmu dan gunakan voice chat untuk strategi kemenangan.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-tshirt feature-icon"></i>
+                <h3>Kustomisasi</h3>
+                <p>Ratusan skin senjata, karakter, dan pet unik untuk gaya bermainmu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== KARAKTER SECTION ===== -->
+    <section class="section" id="characters">
+        <h2 class="section-title">Karakter Populer</h2>
+        <div class="char-grid">
+            <!-- Card 1 -->
+            <div class="char-card">
+                <!-- Placeholder Image -->
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=500&q=80" alt="Character 1">
+                <div class="char-info">
+                    <h3>Alok</h3>
+                    <p>DJ Superstar dengan skill penyembuhan.</p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="char-card">
+                <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500&q=80" alt="Character 2">
+                <div class="char-info">
+                    <h3>Kelly</h3>
+                    <p>Pelari cepat dengan dash mematikan.</p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="char-card">
+                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=500&q=80" alt="Character 3">
+                <div class="char-info">
+                    <h3>Chrono</h3>
+                    <p>Pemburu hadiah dari masa depan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="nav-logo" style="justify-content: center; margin-bottom: 20px;">
+            <span class="logo-text">FREE FIRE</span>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+        </div>
+        <p style="margin-top: 20px; color: #666; font-size: 0.8rem;">&copy; 2026 Garena International. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Script Toggle Menu dari kode asli kamu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
